@@ -3,6 +3,7 @@ import { Weapon } from "./weapon";
 export abstract class Character {
   abstract readonly name: string;
   private attacked = false;
+
   constructor(
     protected HP: number = 1,
     protected damageMultiplier: number = 1,
@@ -42,7 +43,19 @@ export abstract class Character {
     }
   }
 
+  public healing(HP: number) {
+    if (HP > 0) this.HP += HP;
+  }
+
   equipe(weapon: Weapon): void {
     this.weapon = weapon;
+  }
+
+  /**
+   * @params dmg Multiplicador
+   */
+  public modifyDamage(damageMultiplier: number) {
+    if (this.weapon)
+      this.weapon.damage = Math.round(this.weapon.damage * damageMultiplier);
   }
 }

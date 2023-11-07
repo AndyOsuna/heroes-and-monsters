@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { Bando } from "../game/bando";
 import { Character } from "../game/character";
 import { Warrior, Wizard } from "../game/hero";
+import { Side } from "../game/side";
 import { Weapon } from "../game/weapon";
 
 describe("Bandos", () => {
@@ -11,8 +11,8 @@ describe("Bandos", () => {
     const listitaCharacters2: Character[] = [];
     listitaCharacters2.push(new Wizard(), new Warrior());
 
-    const b1 = new Bando(listitaCharacters);
-    const b2 = new Bando(listitaCharacters2);
+    const b1 = new Side(listitaCharacters);
+    const b2 = new Side(listitaCharacters2);
 
     b1.attack(b2);
 

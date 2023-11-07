@@ -5,7 +5,7 @@ export class Hero extends Character {
   name = "Hero";
   HP = 100;
 
-  attack(characterAttacked: Character): void {
+  attack(characterAttacked: Character) {
     super.attack(characterAttacked);
   }
 }
