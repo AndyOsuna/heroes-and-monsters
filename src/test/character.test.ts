@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { Monster } from "../game/monster";
-import { Weapon } from "../game/weapon";
+import Weapon from "../game/weapon";
 
 describe("Character things...", () => {
   it("The HP cannot be less than 0", () => {

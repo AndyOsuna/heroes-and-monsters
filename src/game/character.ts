@@ -1,6 +1,6 @@
-import { Weapon } from "./weapon";
+import Weapon from "./weapon";
 
-export abstract class Character {
+export default abstract class Character {
   abstract readonly name: string;
   private attacked = false;
 
@@ -43,7 +43,7 @@ export abstract class Character {
     }
   }
 
-  public healing(HP: number) {
+  healing(HP: number) {
     if (HP > 0) this.HP += HP;
   }
 
@@ -54,7 +54,7 @@ export abstract class Character {
   /**
    * @params dmg Multiplicador
    */
-  public modifyDamage(damageMultiplier: number) {
+  modifyDamage(damageMultiplier: number) {
     if (this.weapon)
       this.weapon.damage = Math.round(this.weapon.damage * damageMultiplier);
   }

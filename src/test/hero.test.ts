@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { Warrior, Wizard } from "../game/hero";
-import { Weapon } from "../game/weapon";
+import Weapon from "../game/weapon";
 
 describe("Heroes attack", () => {
   it("Warrior attack; triplies damage of his weapon", () => {

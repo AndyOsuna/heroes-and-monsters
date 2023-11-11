@@ -1,7 +1,7 @@
-import { Character } from "./character";
+import Character from "./character";
 import { Spell } from "./spell";
 
-export class Side {
+export default class Side {
   constructor(private characters: Character[], public spell?: Spell) {}
 
   someWasAttacked(): boolean {

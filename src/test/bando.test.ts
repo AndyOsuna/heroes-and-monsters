@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { Character } from "../game/character";
+import Character from "../game/character";
 import { Warrior, Wizard } from "../game/hero";
-import { Side } from "../game/side";
-import { Weapon } from "../game/weapon";
+import Side from "../game/side";
+import Weapon from "../game/weapon";
 
 describe("Bandos", () => {
   it("Un bando ataca a otro", () => {

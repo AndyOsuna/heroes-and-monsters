@@ -1,4 +1,4 @@
-import { Character } from "./character";
+import Character from "./character";
 export abstract class Spell {
   constructor(
     private name: string,

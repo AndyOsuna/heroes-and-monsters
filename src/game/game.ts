@@ -1,10 +1,10 @@
 import { Warrior } from "./hero";
 import { Monster } from "./monster";
-import { Side } from "./side";
+import Side from "./side";
 import { BoostDamageSpell, Spell } from "./spell";
-import { Weapon } from "./weapon";
+import Weapon from "./weapon";
 
-export class Game {
+export default class Game {
   bando1: Side;
   bando2: Side;
   constructor() {

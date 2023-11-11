@@ -1,5 +1,5 @@
 import { describe, it } from "vitest";
-import { Game } from "../game/game";
+import Game from "../game/game";
 
 describe("The Game", () => {
   it("testing..", () => {
