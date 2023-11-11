@@ -15,7 +15,7 @@ export default class Side {
     /* Cada personaje ataca a otro del otro bando aleatoriamente */
 
     spell?.execute(this.characters, otherBando.characters);
-
+    console.log("Spell:", spell?.name);
     this.characters.forEach((character) =>
       character.attack(
         otherBando.characters[

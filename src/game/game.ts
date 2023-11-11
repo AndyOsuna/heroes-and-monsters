@@ -28,8 +28,8 @@ export default class Game {
       if (this.bando1.isDead()) break;
 
       console.log("Turn end");
-      /* Gameover */
     }
+    /* Gameover */
     if (this.bando1.isDead()) console.log("Ganó el bando 2 :D");
     else console.log("Ganó el bando 1 :P");
   }
