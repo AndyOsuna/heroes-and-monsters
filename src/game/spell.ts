@@ -1,7 +1,7 @@
 import Character from "./character";
 export abstract class Spell {
   constructor(
-    private name: string,
+    readonly name: string,
     private description: string,
     private icon: IconSpell,
     private cooldown: number
@@ -9,6 +9,22 @@ export abstract class Spell {
 
   abstract execute(alies: Character[], enemies: Character[]): void;
   abstract clear(alies: Character[], enemies: Character[]): void;
+
+  static RandomSpell(): Spell {
+    const cantSpells = 2;
+
+    switch (Math.floor(Math.random() * cantSpells)) {
+      case 0: {
+        return new BoostDamageSpell();
+      }
+      case 1: {
+        return new NerfDamageSpell();
+      }
+      default: {
+        return new BoostDamageSpell();
+      }
+    }
+  }
 }
 
 class IconSpell {
@@ -70,7 +86,7 @@ export class BoostDamageSpell extends Spell {
 export class NerfDamageSpell extends Spell {
   constructor() {
     super(
-      "BoostDamage",
+      "NeftDamage",
       "Habilidad rre sarpada, mata a todos",
       new IconSpell("/xD.jpg"),
       5

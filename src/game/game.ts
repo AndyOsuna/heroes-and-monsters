@@ -1,7 +1,7 @@
 import { Warrior } from "./hero";
 import { Monster } from "./monster";
 import Side from "./side";
-import { BoostDamageSpell, Spell } from "./spell";
+import { Spell } from "./spell";
 import Weapon from "./weapon";
 
 export default class Game {
@@ -16,19 +16,15 @@ export default class Game {
     ]);
   }
 
-  selectSpell(): Spell {
-    return new BoostDamageSpell();
-  }
-
   start(): void {
     while (true) {
       /* TODO: Seleccionar Habilidad */
 
-      this.bando1.attack(this.bando2, this.selectSpell());
+      this.bando1.attack(this.bando2, Spell.RandomSpell());
       if (this.bando2.isDead()) break;
 
       /* TODO: Habilidad */
-      this.bando2.attack(this.bando1, this.selectSpell());
+      this.bando2.attack(this.bando1, Spell.RandomSpell());
       if (this.bando1.isDead()) break;
 
       console.log("Turn end");
