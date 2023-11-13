@@ -16,21 +16,16 @@ export default class Game {
     ]);
   }
 
-  start(): void {
-    while (true) {
-      /* TODO: Seleccionar Habilidad */
+  turn(attacker: number, usedSpell: Spell): any {
+    console.log("ananashe");
+    console.log(this.bando1, this.bando2)
+    if (attacker == 1) this.bando1.attack(this.bando2, usedSpell);
+    else this.bando2.attack(this.bando1, usedSpell);
 
-      this.bando1.attack(this.bando2, Spell.RandomSpell());
-      if (this.bando2.isDead()) break;
-
-      /* TODO: Habilidad */
-      this.bando2.attack(this.bando1, Spell.RandomSpell());
-      if (this.bando1.isDead()) break;
-
-      console.log("Turn end");
-    }
+    console.log("Turn end");
     /* Gameover */
+
     if (this.bando1.isDead()) console.log("Ganó el bando 2 :D");
-    else console.log("Ganó el bando 1 :P");
+    else if (this.bando2.isDead()) console.log("Ganó el bando 1 :P");
   }
 }
