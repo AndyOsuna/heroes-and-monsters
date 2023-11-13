@@ -2,7 +2,7 @@ import Character from "./character";
 import { Spell } from "./spell";
 
 export default class Side {
-  constructor(private characters: Character[], public spell?: Spell) {}
+  constructor(private characters: Character[], public spell?: Spell) { }
 
   someWasAttacked(): boolean {
     return this.characters.some((character) => character.wasAttacked);

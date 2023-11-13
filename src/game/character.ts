@@ -1,16 +1,27 @@
 import Weapon from "./weapon";
 
+/*
+ ? Reworkee un poco la clase para agregar la vida máxima, y cuando la instancias le pasas la vida máxima y el HP
+ ? ya se setea en base a esa vida máxima. Eso lo pongo pq va a ser útil para barras de vida, spells que usen de referencia la
+ ? vida máxima, etc.  
+*/
+
 export default abstract class Character {
   abstract readonly name: string;
   private attacked = false;
+  protected HP: number;
 
   constructor(
-    protected HP: number = 1,
+    protected maxHP: number = 1,
     protected damageMultiplier: number = 1,
     protected defaultDamage: number = 0,
     protected weapon?: Weapon
-  ) {}
-
+  ) {
+    this.HP = maxHP;
+  }
+  get maxHealth() {
+    return this.maxHP;
+  }
   get health() {
     return this.HP;
   }
@@ -33,7 +44,8 @@ export default abstract class Character {
     );
   }
 
-  private receiveDamage(damage: number) {
+  //! Le quité el private para poder hacerle damage con las spells ademas de las armas
+  receiveDamage(damage: number) {
     if (!this.attacked) this.attacked = true;
 
     this.HP -= damage;
@@ -43,7 +55,8 @@ export default abstract class Character {
     }
   }
 
-  healing(HP: number) {
+  // TODO: Hay que revisar que este método no overhelee al personaje, es decir, que no pase de la vida máxima. 
+  heal(HP: number) {
     if (HP > 0) this.HP += HP;
   }
 
