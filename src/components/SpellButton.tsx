@@ -1,6 +1,11 @@
 import { Spell } from "@/game/spell";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function SpellButton({
   spell,
@@ -11,21 +16,28 @@ export default function SpellButton({
   onclick: () => any;
   disabled: boolean;
 }) {
-  const [_xD, setRerender] = useState(false);
-
   return (
-    <button
-      onClick={() => {
-        onclick();
-        setRerender((xd) => !xd);
-      }}
-      className="h-20 w-20 bg-contain bg-no-repeat drop-shadow-2xl relative"
-      disabled={disabled}
-    >
-      <h1 className="text-blue-400 font-bold text-2xl bg-black/70">
-        {spell.currentCooldown}
-      </h1>
-      <Image src={spell.icon} alt="" fill className="-z-10" />
-    </button>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger>
+          <button
+            onClick={() => onclick()}
+            className="h-20 w-20 bg-contain bg-no-repeat drop-shadow-2xl relative"
+            disabled={disabled}
+          >
+            {spell.currentCooldown > 0 && (
+              <h1 className="text-white font-light text-6xl bg-black/70">
+                {spell.currentCooldown}
+              </h1>
+            )}
+            <Image src={spell.icon} alt="" fill className="-z-10" />
+          </button>
+        </TooltipTrigger>
+        <TooltipContent className="bg-neutral-950 text-white">
+          <h1 className="text-lg">{spell.name}:</h1>
+          <p>{spell.description}</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 }
