@@ -1,5 +1,4 @@
 import Weapon from "./weapon";
-
 /*
  ? Reworkee un poco la clase para agregar la vida máxima, y cuando la instancias le pasas la vida máxima y el HP
  ? ya se setea en base a esa vida máxima. Eso lo pongo pq va a ser útil para barras de vida, spells que usen de referencia la

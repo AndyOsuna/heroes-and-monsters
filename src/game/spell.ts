@@ -41,7 +41,7 @@ export abstract class Spell {
         return new BoostDamageSpell();
       }
       case 1: {
-        return new NerfDamageSpell();
+        return new HealAllSpell();
       }
       default: {
         return new BoostDamageSpell();
@@ -194,32 +194,6 @@ export class BoostDamageSpell extends Spell {
   clear(alies: Character[]): void {
     alies.forEach((character) => {
       character.modifyDamage(1 / 1.3);
-    });
-  }
-}
-export class NerfDamageSpell extends Spell {
-  constructor() {
-    super(
-      "Guardian's Respite",
-      "Reduce the damage taken by your side by 30% for one turn",
-      celestialHarmonyIcon,
-      5
-    );
-  }
-
-  execute(_alies: Character[], enemies: Character[]): void {
-    if (this.currentCooldown > 0) {
-      console.log("No se puede usar el hechizo, esta en cooldown");
-      return;
-    }
-    enemies.forEach((character) => {
-      character.modifyDamage(0.7);
-    });
-    this.currentCooldown = this.cooldown;
-  }
-  clear(_alies: Character[], enemies: Character[]): void {
-    enemies.forEach((character) => {
-      character.modifyDamage(1 / 0.7);
     });
   }
 }

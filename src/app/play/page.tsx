@@ -14,7 +14,6 @@ import {
   DamageSpell,
   DamageAllSpell,
   BoostDamageSpell,
-  NerfDamageSpell,
 } from "@/game/spell";
 import MenuFinish from "@/components/MenuFinish";
 
@@ -25,7 +24,6 @@ let spells = {
     new DamageSpell(),
     new DamageAllSpell(),
     new BoostDamageSpell(),
-    new NerfDamageSpell(),
   ],
   sideTwoSpells: [
     new HealAllSpell(),
@@ -33,7 +31,6 @@ let spells = {
     new DamageSpell(),
     new DamageAllSpell(),
     new BoostDamageSpell(),
-    new NerfDamageSpell(),
   ],
 };
 
