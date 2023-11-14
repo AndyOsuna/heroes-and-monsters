@@ -1,11 +1,4 @@
-import {
-  Spell,
-  HealAllSpell,
-  RandomHealSpell,
-  DamageSpell,
-  DamageAllSpell,
-  BoostDamageSpell,
-} from "../game/spell";
+import { Spell } from "../game/spell";
 import SpellButton from "./SpellButton";
 
 
@@ -29,7 +22,7 @@ export default function SpellBar({
           key={spell.name}
           spell={spell}
           onclick={() => turn(attacker, spell)}
-          disabled={disabled}
+          disabled={disabled || spell.currentCooldown > 0}
         />
       
     ))}

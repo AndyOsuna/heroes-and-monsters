@@ -6,7 +6,6 @@ import { Monster } from "@/game/monster";
 import Side from "@/game/side";
 import { Warrior, Wizard } from "@/game/hero";
 import Weapon from "@/game/weapon";
-import Prueba from "@/public/spr_KingWalk_strip_no_bkg.png";
 import WarriorImage from '@/public/warrior.png';
 import WizardImage from '@/public/wizard.png';
 import MonsterImage from '@/public/monster1.png';
@@ -55,7 +54,7 @@ let spells = {
 };
 
 let bando1 = new Side([new Warrior(new Weapon("Sable laser", 5)),
-new Warrior() ]);
+new Wizard() ]);
 let bando2 = new Side([
   new Monster(35, new Weapon("palo", 3)),
   new Monster(35, new Weapon("palo", 10)),
