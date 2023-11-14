@@ -3,6 +3,7 @@ import Weapon from "./weapon";
 
 export class Hero extends Character {
   name = "Hero";
+  maxHP=100;
   HP = 100;
 
   attack(characterAttacked: Character) {

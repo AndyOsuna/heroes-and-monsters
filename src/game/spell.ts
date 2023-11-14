@@ -1,11 +1,11 @@
 import { StaticImageData } from "next/image";
 import Character from "./character";
-import celestialHarmonyIcon from "@/public/celestialHarmonyIcon.png";
-// import fortuneMendIcon from "@/assets/fortuneMendIcon.png";
-// import lifebaneBurstIcon from "@/assets/lifebaneBurstIcon.png";
-// import riftbreakerIcon from "@/assets/riftbreakerIcon.png";
-// import furyInfusionIcon from "@/assets/furyInfusionIcon.png";
-// import guardiansRespiteIcon from "@/assets/guardiansRespiteIcon.png";
+import celestialHarmonyIcon from "@/public/spell1.png";
+import fortuneMendIcon from "@/public/spell2.png";
+import lifebaneBurstIcon from "@/public/spell4.png";
+import riftbreakerIcon from "@/public/spell6.png";
+import furyInfusionIcon from "@/public/spell3.png";
+
 
 /**
  * Agregué el currentCooldown para poder trackearlo ahi a cada uno, luego en el game voy a agregar una funcion que les reste
@@ -99,7 +99,7 @@ export class RandomHealSpell extends Spell {
     super(
       "Fortune's Mend",
       "Heals a random member of your side for 20% of their max health",
-      celestialHarmonyIcon,
+      fortuneMendIcon,
       2
     );
   }
@@ -124,7 +124,7 @@ export class DamageSpell extends Spell {
     super(
       "Riftbreaker",
       "Deals 5% of the enemy's max health as damage",
-      celestialHarmonyIcon,
+      riftbreakerIcon,
       2
     );
   }
@@ -149,7 +149,7 @@ export class DamageAllSpell extends Spell {
     super(
       "Lifebane Burst",
       "Deals 30% of the max health to all characters",
-      celestialHarmonyIcon,
+      lifebaneBurstIcon,
       6
     );
   }
@@ -176,7 +176,7 @@ export class BoostDamageSpell extends Spell {
     super(
       "Fury Infusion",
       "Bosts your side's weapon damage by 30% for one turn",
-      celestialHarmonyIcon,
+      furyInfusionIcon,
       5
     );
   }
