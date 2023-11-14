@@ -64,7 +64,7 @@ export default abstract class Character {
   // TODO: Hay que revisar que este método no overhelee al personaje, es decir, que no pase de la vida máxima.
   heal(HP: number) {
     if (HP > 0){
-      if(this.HP+HP>this.maxHP)
+      if((this.HP+HP)>this.maxHP)
       this.HP==this.maxHP
       else
       this.HP += HP;

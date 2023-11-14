@@ -1,6 +1,7 @@
 "use client";
-import { useCallback, useState } from "react";
-import Image from 'next/image';
+import { useCallback, useEffect, useState } from "react";
+import Image from "next/image";
+
 import SpellBar from "@/components/SpellBar";
 import { Monster } from "@/game/monster";
 import Side from "@/game/side";
@@ -24,7 +25,7 @@ import HealthBar from "@/components/healthBar";
 
 
 const getCharacterImage = (character: Character) => {
-  switch(character.constructor.name) {
+  switch (character.constructor.name) {
     case 'Warrior':
       return WarriorImage;
     case 'Wizard':
@@ -53,27 +54,24 @@ let spells = {
   ],
 };
 
-let bando1 = new Side([new Warrior(new Weapon("Sable laser", 5)),
-new Wizard() ]);
+let bando1 = new Side([new Warrior(new Weapon("Sable laser", 5)), new Wizard()]);
 let bando2 = new Side([
   new Monster(35, new Weapon("palo", 3)),
   new Monster(35, new Weapon("palo", 10)),
   new Monster(35, new Weapon("palo", 5)),
-  
 ]);
 
-const bando1Characters = bando1.getCharacters();
-const bando2Characters = bando2.getCharacters();
-
 export default function Home() {
+  const [mounted, setMounted] = useState(false)
   const [currentTurn, setCurrentTurn] = useState(0);
   const [gameStatus, setGameStatus] = useState<"playing" | "finished">(
     "playing"
   );
-  const [isAttackAnimationVisible, setAttackAnimationVisible] = useState(false);
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const turn = useCallback((attacker: number, usedSpell: Spell) => {
-    setAttackAnimationVisible(true);
     setCurrentTurn((t) => ++t);
     /**
      * Le bajo el cd a todas las habilidades antes del turno porque cuando se usan en attack se les pone el cd en turnos
@@ -93,10 +91,9 @@ export default function Home() {
       console.log("Ganó el bando 1 :P");
       setGameStatus("finished");
     }
-
-
   }, []);
 
+  if (!mounted) return null
   return (
     <main className=" bg-[url(../public/bg-play2.png)] bg-cover bg-no-repeat bg-center h-screen w-screen flex justify-between items-center  p-2">
 
@@ -104,44 +101,43 @@ export default function Home() {
 
       {gameStatus === "playing" && (
         <>
-        
           <SpellBar
             spells={spells.sideOneSpells}
             turn={turn}
             attacker={1}
             disabled={currentTurn % 2 === 0}
-       />
-       <div className="flex justify-between mt-48">
-   <div className="mr-40">
- 
-   {bando1.getCharacters().map((char, index) => (
-  <div style={{ marginLeft: `${index * -50}px` }}> 
-  <HealthBar maxHp={char.maxHealth} currentHp={char.health} />
-    <Image width={150} height={150} key={index} src={getCharacterImage(char)} alt={`${char.constructor.name} ${index + 1}`} />
-    
-  </div>
-))}
-</div>
-<div className="ml-40">
+          />
+          <div className="flex justify-between mt-48">
+            <div className="mr-40">
 
-  {bando2.getCharacters().map((char, index) => (
-    <div style={{ marginLeft: `${index * 50}px` }}> 
-    <HealthBar maxHp={char.maxHealth} currentHp={char.health} />
-    <Image width={150} height={150} key={index} src={getCharacterImage(char)} alt={`${char.constructor.name} ${index + 1}`} />
-    
-    </div>
-  ))}
-</div>
+              {bando1.getCharacters().map((char, index) => (
+                <div key={index} style={{ marginLeft: `${index * -50}px` }}>
+                  <HealthBar maxHp={char.maxHealth} currentHp={char.health} />
+                  <Image width={150} height={150} key={index} src={getCharacterImage(char)} alt={`${char.constructor.name} ${index + 1}`} />
 
-</div>
+                </div>
+              ))}
+            </div>
+            <div className="ml-40">
+
+              {bando2.getCharacters().map((char, index) => (
+                <div key={index} style={{ marginLeft: `${index * 50}px` }}>
+                  <HealthBar maxHp={char.maxHealth} currentHp={char.health} />
+                  <Image width={150} height={150} key={index} src={getCharacterImage(char)} alt={`${char.constructor.name} ${index + 1}`} />
+
+                </div>
+              ))}
+            </div>
+
+          </div>
           <SpellBar
             spells={spells.sideTwoSpells}
             turn={turn}
             attacker={2}
             disabled={currentTurn % 2 !== 0}
           />
-        
-      
+
+
         </>
       )}
       {gameStatus === "finished" && <MenuFinish />}
