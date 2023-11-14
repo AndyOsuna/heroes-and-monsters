@@ -37,14 +37,21 @@ export default abstract class Character {
     if (this.weapon) damage = this.weapon.damage;
     damage *= this.damageMultiplier;
 
-    characterAttacked.receiveDamage(damage);
+    let newWeapon = characterAttacked.receiveDamage(damage);
+
     console.log(
       `(${this.name}: ${this.HP} HP) attacks (${characterAttacked.name}: ${characterAttacked.HP} HP) for ${damage} damage`
     );
+    if (newWeapon) {
+      console.log(
+        `${this.name} se equipó su nueva arma: ${newWeapon.name}(${newWeapon.damage})`
+      );
+      this.weapon = newWeapon;
+    }
   }
 
   //! Le quité el private para poder hacerle damage con las spells ademas de las armas
-  receiveDamage(damage: number) {
+  receiveDamage(damage: number): void | Weapon {
     if (!this.attacked) this.attacked = true;
 
     this.HP -= damage;
@@ -54,7 +61,7 @@ export default abstract class Character {
     }
   }
 
-  // TODO: Hay que revisar que este método no overhelee al personaje, es decir, que no pase de la vida máxima. 
+  // TODO: Hay que revisar que este método no overhelee al personaje, es decir, que no pase de la vida máxima.
   heal(HP: number) {
     if (HP > 0) this.HP += HP;
   }

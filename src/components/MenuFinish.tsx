@@ -1,6 +1,6 @@
 export default function MenuFinish() {
   return (
-    <div className="grid place-items-center h-80 w-80 m-auto bg-black opacity-90 rounded-lg drop-shadow-2xl">
+    <div className="grid place-items-center h-80 w-80 m-auto bg-black text-white opacity-90 rounded-lg drop-shadow-2xl">
       <h1 className="text-4xl font-bold">Game Over</h1>
       <button
         onClick={() => window.location.reload()}

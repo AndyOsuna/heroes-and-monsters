@@ -10,4 +10,11 @@ export class Monster extends Character {
   attack(characterAttacked: Character) {
     super.attack(characterAttacked);
   }
+  receiveDamage(damage: number): void | Weapon {
+    super.receiveDamage(damage);
+
+    if (this.HP <= 0) {
+      return this.weapon;
+    }
+  }
 }

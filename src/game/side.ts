@@ -2,9 +2,8 @@ import Character from "./character";
 import { Spell } from "./spell";
 
 export default class Side {
-  constructor(private characters: Character[], public spell?: Spell) { }
+  constructor(private characters: Character[], public spell?: Spell) {}
 
-  
   someWasAttacked(): boolean {
     return this.characters.some((character) => character.wasAttacked);
   }
@@ -17,6 +16,7 @@ export default class Side {
 
     spell?.execute(this.characters, otherBando.characters);
     console.log("Spell:", spell?.name);
+
     this.characters.forEach((character) =>
       character.attack(
         otherBando.characters[
@@ -31,9 +31,8 @@ export default class Side {
     );
     spell?.clear(this.characters, otherBando.characters);
   }
-  
+
   public getCharacters() {
     return this.characters;
   }
-
 }
