@@ -1,15 +1,15 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-
+import LoggerComp from "@/components/Logger";
 import SpellBar from "@/components/SpellBar";
 import { Monster } from "@/game/monster";
 import Side from "@/game/side";
 import { Warrior, Wizard } from "@/game/hero";
 import Weapon from "@/game/weapon";
-import WarriorImage from '@/public/warrior.png';
-import WizardImage from '@/public/wizard.png';
-import MonsterImage from '@/public/monster1.png';
+import WarriorImage from "@/public/warrior.png";
+import WizardImage from "@/public/wizard.png";
+import MonsterImage from "@/public/monster1.png";
 import NullImage from "@/public/nullImage.png";
 import {
   Spell,
@@ -22,15 +22,15 @@ import {
 import MenuFinish from "@/components/MenuFinish";
 import Character from "@/game/character";
 import HealthBar from "@/components/healthBar";
-
+import Logger from "@/game/logger";
 
 const getCharacterImage = (character: Character) => {
   switch (character.constructor.name) {
-    case 'Warrior':
+    case "Warrior":
       return WarriorImage;
-    case 'Wizard':
+    case "Wizard":
       return WizardImage;
-    case 'Monster':
+    case "Monster":
       return MonsterImage;
     default:
       return NullImage;
@@ -54,22 +54,29 @@ let spells = {
   ],
 };
 
-let bando1 = new Side([new Warrior(new Weapon("Sable laser", 5)), new Wizard()]);
+let logger = new Logger();
+
+let bando1 = new Side([
+  new Warrior(new Weapon("Sable laser", 5)),
+  new Wizard(),
+]);
 let bando2 = new Side([
   new Monster(35, new Weapon("palo", 3)),
   new Monster(35, new Weapon("palo", 10)),
   new Monster(35, new Weapon("palo", 5)),
 ]);
+bando1.setLogger(logger);
+bando2.setLogger(logger);
 
 export default function Home() {
-  const [mounted, setMounted] = useState(false)
+  const [mounted, setMounted] = useState(false);
   const [currentTurn, setCurrentTurn] = useState(0);
   const [gameStatus, setGameStatus] = useState<"playing" | "finished">(
     "playing"
   );
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   const turn = useCallback((attacker: number, usedSpell: Spell) => {
     setCurrentTurn((t) => ++t);
@@ -83,22 +90,19 @@ export default function Home() {
     if (attacker == 1) bando1.attack(bando2, usedSpell);
     else bando2.attack(bando1, usedSpell);
 
-    console.log("Turn end");
+    logger.log("--------------------------------------------------------------------");
     if (bando1.isDead()) {
-      console.log("Ganó el bando 2 :D");
+      logger.log("Ganó el bando 2 :D");
       setGameStatus("finished");
     } else if (bando2.isDead()) {
-      console.log("Ganó el bando 1 :P");
+      logger.log("Ganó el bando 1 :P");
       setGameStatus("finished");
     }
   }, []);
 
-  if (!mounted) return null
+  if (!mounted) return null;
   return (
     <main className=" bg-[url(../public/bg-play2.png)] bg-cover bg-no-repeat bg-center h-screen w-screen flex justify-between items-center  p-2">
-
-
-
       {gameStatus === "playing" && (
         <>
           <SpellBar
@@ -109,26 +113,34 @@ export default function Home() {
           />
           <div className="flex justify-between mt-48">
             <div className="mr-40">
-
               {bando1.getCharacters().map((char, index) => (
                 <div key={index} style={{ marginLeft: `${index * -50}px` }}>
                   <HealthBar maxHp={char.maxHealth} currentHp={char.health} />
-                  <Image width={150} height={150} key={index} src={getCharacterImage(char)} alt={`${char.constructor.name} ${index + 1}`} />
-
+                  <Image
+                    width={150}
+                    height={150}
+                    key={index}
+                    src={getCharacterImage(char)}
+                    alt={`${char.constructor.name} ${index + 1}`}
+                  />
                 </div>
               ))}
             </div>
+            <LoggerComp logger={logger} />
             <div className="ml-40">
-
               {bando2.getCharacters().map((char, index) => (
                 <div key={index} style={{ marginLeft: `${index * 50}px` }}>
                   <HealthBar maxHp={char.maxHealth} currentHp={char.health} />
-                  <Image width={150} height={150} key={index} src={getCharacterImage(char)} alt={`${char.constructor.name} ${index + 1}`} />
-
+                  <Image
+                    width={150}
+                    height={150}
+                    key={index}
+                    src={getCharacterImage(char)}
+                    alt={`${char.constructor.name} ${index + 1}`}
+                  />
                 </div>
               ))}
             </div>
-
           </div>
           <SpellBar
             spells={spells.sideTwoSpells}
@@ -136,8 +148,6 @@ export default function Home() {
             attacker={2}
             disabled={currentTurn % 2 !== 0}
           />
-
-
         </>
       )}
       {gameStatus === "finished" && <MenuFinish />}
