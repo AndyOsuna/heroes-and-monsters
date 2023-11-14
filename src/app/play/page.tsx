@@ -90,19 +90,23 @@ export default function Home() {
     if (attacker == 1) bando1.attack(bando2, usedSpell);
     else bando2.attack(bando1, usedSpell);
 
-    logger.log("--------------------------------------------------------------------");
+    logger.log(
+      "--------------------------------------------------------------------"
+    );
     if (bando1.isDead()) {
-      logger.log("Ganó el bando 2 :D");
+      logger.log("Ganó el bando 2!");
       setGameStatus("finished");
     } else if (bando2.isDead()) {
-      logger.log("Ganó el bando 1 :P");
+      logger.log("Ganó el bando 1!");
       setGameStatus("finished");
     }
   }, []);
 
   if (!mounted) return null;
   return (
-    <main className=" bg-[url(../public/bg-play2.png)] bg-cover bg-no-repeat bg-center h-screen w-screen flex justify-between items-center  p-2">
+    <main className="bg-[url(../public/bg-play2.png)] bg-cover bg-no-repeat bg-center h-screen w-screen flex justify-between items-center  p-2">
+      <LoggerComp logger={logger} fullSize={gameStatus==="finished"} />
+      
       {gameStatus === "playing" && (
         <>
           <SpellBar
@@ -126,7 +130,6 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <LoggerComp logger={logger} />
             <div className="ml-40">
               {bando2.getCharacters().map((char, index) => (
                 <div key={index} style={{ marginLeft: `${index * 50}px` }}>
@@ -150,7 +153,11 @@ export default function Home() {
           />
         </>
       )}
-      {gameStatus === "finished" && <MenuFinish />}
+      {gameStatus === "finished" && (
+        <>
+          <MenuFinish />
+        </>
+      )}
     </main>
   );
 }
