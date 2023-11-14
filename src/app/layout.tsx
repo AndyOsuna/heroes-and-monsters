@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Pixelify_Sans } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const pixelify_sans = Pixelify_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Heroes & Monsters",
@@ -21,7 +21,7 @@ export default function RootLayout({
           
         </script>
       </head>
-      <body className={inter.className.concat(' bg-black')}>{children}</body>
+      <body className={pixelify_sans.className.concat(' bg-black')}>{children}</body>
     </html>
   );
 }

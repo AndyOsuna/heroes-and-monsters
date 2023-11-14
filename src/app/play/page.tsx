@@ -21,6 +21,7 @@ import {
 } from "@/game/spell";
 import MenuFinish from "@/components/MenuFinish";
 import Character from "@/game/character";
+import HealthBar from "@/components/healthBar";
 
 
 const getCharacterImage = (character: Character) => {
@@ -54,7 +55,7 @@ let spells = {
 };
 
 let bando1 = new Side([new Warrior(new Weapon("Sable laser", 5)),
-new Wizard() ]);
+new Warrior() ]);
 let bando2 = new Side([
   new Monster(35, new Weapon("palo", 3)),
   new Monster(35, new Weapon("palo", 10)),
@@ -98,7 +99,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="bg-[url(https://i.postimg.cc/0NwQq9VN/bg-play.png)] bg-center bg-no-repeat h-screen w-screen flex justify-between items-center  p-2">
+    <main className=" bg-[url(../public/bg-play2.png)] bg-cover bg-no-repeat bg-center h-screen w-screen flex justify-between items-center  p-2">
 
 
 
@@ -110,21 +111,25 @@ export default function Home() {
             turn={turn}
             attacker={1}
             disabled={currentTurn % 2 === 0}
-      
        />
        <div className="flex justify-between mt-48">
    <div className="mr-40">
-
  
-  {bando1.getCharacters().map((char, index) => (
+   {bando1.getCharacters().map((char, index) => (
+  <div style={{ marginLeft: `${index * -50}px` }}> 
+  <HealthBar maxHp={char.maxHealth} currentHp={char.health} />
     <Image width={150} height={150} key={index} src={getCharacterImage(char)} alt={`${char.constructor.name} ${index + 1}`} />
-  ))}
+    
+  </div>
+))}
 </div>
 <div className="ml-40">
 
   {bando2.getCharacters().map((char, index) => (
-    <div style={{ marginLeft: `${index * 10}px` }}> 
+    <div style={{ marginLeft: `${index * 50}px` }}> 
+    <HealthBar maxHp={char.maxHealth} currentHp={char.health} />
     <Image width={150} height={150} key={index} src={getCharacterImage(char)} alt={`${char.constructor.name} ${index + 1}`} />
+    
     </div>
   ))}
 </div>
@@ -137,22 +142,7 @@ export default function Home() {
             disabled={currentTurn % 2 !== 0}
           />
         
-        
-           <Image
-              className={`h-56 ${isAttackAnimationVisible ? "" : ""}`}
-              src={Prueba}
-              style={{
-                display: isAttackAnimationVisible ? "block" : "none",
-                position: "absolute",
-                top: "50%", 
-                left: currentTurn % 2 === 0 ? "10%" : "auto",
-                right: currentTurn % 2 !== 0 ? "-50%" : "auto", 
-                transform: "translate(-50%, -50%)",
-                transition: "left 0.2s ease-out, right 0.2s ease-out",
-                
-              }}
-              alt=""      
-           />
+      
         </>
       )}
       {gameStatus === "finished" && <MenuFinish />}

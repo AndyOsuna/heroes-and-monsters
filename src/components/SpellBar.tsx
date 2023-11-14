@@ -8,6 +8,7 @@ import {
 } from "../game/spell";
 import SpellButton from "./SpellButton";
 
+
 export default function SpellBar({
   spells,
   turn,
@@ -20,16 +21,20 @@ export default function SpellBar({
   disabled: boolean;
 }) {
   return (
-    <div className="text-black bg-[url(../public/spellBar.png)] bg-contain bg-no-repeat h-4/5 w-40 overflow-hidden flex flex-col items-center pt-8 gap-1.5 pl-0.1 my-auto relative">
-      <div className="absolute w-1 h-1 bg-red-500 top-0 left-0" />
-      {spells.map((spell) => (
+    <div className="text-black h-full w-40 items-center justify-center"> 
+      <div className="bg-[url(../public/panel.png)] bg-contain bg-no-repeat bg-center h-full w-40 flex flex-col justify-center items-center gap-3 pt-16" >
+    {spells.map((spell) => (
+      
         <SpellButton
           key={spell.name}
           spell={spell}
           onclick={() => turn(attacker, spell)}
           disabled={disabled}
         />
-      ))}
+      
+    ))}
     </div>
+  </div>
+  
   );
 }
