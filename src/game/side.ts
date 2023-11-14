@@ -4,6 +4,7 @@ import { Spell } from "./spell";
 export default class Side {
   constructor(private characters: Character[], public spell?: Spell) { }
 
+  
   someWasAttacked(): boolean {
     return this.characters.some((character) => character.wasAttacked);
   }
@@ -30,4 +31,9 @@ export default class Side {
     );
     spell?.clear(this.characters, otherBando.characters);
   }
+  
+  public getCharacters() {
+    return this.characters;
+  }
+
 }
