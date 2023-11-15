@@ -77,7 +77,6 @@ export class HealAllSpell extends Spell {
   }
   execute(alies: Character[], enemies: Character[]): void {
     if (this.currentCooldown > 0) {
-      console.log("No se puede usar el hechizo, esta en cooldown");
       return;
     }
     alies.forEach((character) => {
@@ -106,7 +105,6 @@ export class RandomHealSpell extends Spell {
 
   execute(alies: Character[], _enemies: Character[]): void {
     if (this.currentCooldown > 0) {
-      console.log("No se puede usar el hechizo, esta en cooldown");
       return;
     }
     const randomAlie = alies[Math.floor(Math.random() * alies.length)];
@@ -130,7 +128,6 @@ export class DamageSpell extends Spell {
   }
   execute(_alies: Character[], enemies: Character[]): void {
     if (this.currentCooldown > 0) {
-      console.log("No se puede usar el hechizo, esta en cooldown");
       return;
     }
     enemies.forEach((character) => {
@@ -155,7 +152,6 @@ export class DamageAllSpell extends Spell {
   }
   execute(alies: Character[], enemies: Character[]): void {
     if (this.currentCooldown > 0) {
-      console.log("No se puede usar el hechizo, esta en cooldown");
       return;
     }
     alies.forEach((character) => {
@@ -183,7 +179,6 @@ export class BoostDamageSpell extends Spell {
 
   execute(alies: Character[]): void {
     if (this.currentCooldown > 0) {
-      console.log("No se puede usar el hechizo, esta en cooldown");
       return;
     }
     alies.forEach((character) => {

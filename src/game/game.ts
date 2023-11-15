@@ -4,7 +4,9 @@ import Side from "./side";
 import { Spell } from "./spell";
 import Weapon from "./weapon";
 
-/** @deprecated */
+/**
+ * @deprecated
+ */
 export default class Game {
   bando1: Side;
   bando2: Side;
