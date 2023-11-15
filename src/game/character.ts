@@ -1,3 +1,4 @@
+import Logger from "./logger";
 import Weapon from "./weapon";
 /*
  ? Reworkee un poco la clase para agregar la vida máxima, y cuando la instancias le pasas la vida máxima y el HP
@@ -9,8 +10,8 @@ export default abstract class Character {
   abstract readonly name: string;
   private attacked = false;
   protected HP: number;
-  isAttacking: boolean = false;
-  id: any;
+  protected logger?: Logger;
+  isAttacking: any;
 
   constructor(
     protected maxHP: number = 1,
@@ -19,6 +20,10 @@ export default abstract class Character {
     protected weapon?: Weapon
   ) {
     this.HP = maxHP;
+  }
+  setLogger(logger: Logger){
+    this.logger = logger;
+
   }
   get maxHealth() {
     return this.maxHP;
@@ -40,12 +45,13 @@ export default abstract class Character {
     damage *= this.damageMultiplier;
 
     let newWeapon = characterAttacked.receiveDamage(damage);
-
-    console.log(
+    if (this.logger)
+    this.logger.log(
       `(${this.name}: ${this.HP} HP) attacks (${characterAttacked.name}: ${characterAttacked.HP} HP) for ${damage} damage`
     );
     if (newWeapon) {
-      console.log(
+      if (this.logger)
+      this.logger.log(
         `${this.name} se equipó su nueva arma: ${newWeapon.name}(${newWeapon.damage})`
       );
       this.weapon = newWeapon;
@@ -59,11 +65,11 @@ export default abstract class Character {
     this.HP -= damage;
     if (this.HP <= 0) {
       this.HP = 0;
-      console.log(`${this.name} ha sido derrotado`);
+      if (this.logger)
+      this.logger.log(`${this.name} ha sido derrotado`);
     }
   }
 
-  // TODO: Hay que revisar que este método no overhelee al personaje, es decir, que no pase de la vida máxima.
   heal(HP: number) {
     if (HP > 0){
       if((this.HP+HP)>this.maxHP)

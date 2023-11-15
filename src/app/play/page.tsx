@@ -6,20 +6,19 @@ import { Monster } from "@/game/monster";
 import Side from "@/game/side";
 import { Warrior, Wizard } from "@/game/hero";
 import Weapon from "@/game/weapon";
-import WarriorAttackImage from '@/public/warriorAttack.gif';
+import WarriorAttackImage from '@/public/warriorAttack1.gif';
 import WarriorIdleImage from '@/public/warriorIdle1.gif';
 import WarriorDeadImage from '@/public/warriorDead.gif';
 import WizardIdleImage from '@/public/wizardIdle.gif';
-import WizardAttackImage from '@/public/wizardAttack.gif';
+import WizardAttackImage from '@/public/wizardAttack1.gif';
 import WizardDeadImage from '@/public/wizardDead.gif';
 import MonsterIdleImage from '@/public/monsterIdle.gif';
-import MonsterAttackImage from '@/public/monsterAttack.gif';
+import MonsterAttackImage from '@/public/monsterAttack1.gif';
 import MonsterDeadImage from '@/public/monsterDead.gif';
 import Niebla from '@/public/niebla.png';
 import NullImage from "@/public/nullImage.png";
 import CursorImage from '@/public/cursor.png';
-
-
+import LoggerComp from "@/components/Logger";
 import {
   Spell,
   HealAllSpell,
@@ -32,6 +31,7 @@ import MenuFinish from "@/components/MenuFinish";
 import Character from "@/game/character";
 import HealthBar from "@/components/healthBar";
 import AnimatedDivs from "@/components/animateDivs";
+import Logger from "@/game/logger";
 
 
 
@@ -53,6 +53,8 @@ let spells = {
   ],
 };
 
+
+
 function generateRandomCharacter() {
   const randomNum = Math.floor(Math.random() * 3);
   switch (randomNum) {
@@ -66,7 +68,7 @@ function generateRandomCharacter() {
       return new Warrior(new Weapon("Espada", 10));
   }
 }
-
+let logger = new Logger();
 
 let bando1 = new Side([generateRandomCharacter(),
 generateRandomCharacter(),]);
@@ -74,9 +76,10 @@ let bando2 = new Side([
   generateRandomCharacter(),
   generateRandomCharacter(),
 
-
-
 ]);
+bando1.setLogger(logger);
+bando2.setLogger(logger);
+
 
 export default function Home() {
 
@@ -152,12 +155,14 @@ export default function Home() {
     if (attacker == 1) bando1.attack(bando2, usedSpell);
     else bando2.attack(bando1, usedSpell);
 
-    console.log("Turn end");
+    logger.log(
+      "--------------------------------------------------------------------"
+    );
     if (bando1.isDead()) {
-      console.log("Ganó el bando 2 :D");
+      logger.log("Ganó el bando 2!");
       setGameStatus("finished");
     } else if (bando2.isDead()) {
-      console.log("Ganó el bando 1 :P");
+      logger.log("Ganó el bando 1!");
       setGameStatus("finished");
     }
   }, []);
@@ -165,8 +170,12 @@ export default function Home() {
   if (!mounted) return null
   return (
     <main  className="main_cursor bg-[url(../public/bg-play2.gif)] bg-cover bg-no-repeat bg-center h-screen w-screen flex justify-between items-center  p-2">
+      <LoggerComp logger={logger} fullSize={gameStatus==="finished"} />
+      
       <AnimatedDivs />
+     
       <div className="gallery z-10">
+        
     <Image className="z-10" width={500}  height={500} src={Niebla} alt=""/>
     <Image className="z-10" width={500}  height={500} src={Niebla} alt=""/>
     <Image  className="z-10" width={500}  height={500} src={Niebla} alt=""/>
