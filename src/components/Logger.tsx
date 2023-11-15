@@ -11,7 +11,7 @@ export default function Logger({
   return (
     <div
       className={cn(
-        "absolute top-2 left-1/2 -translate-x-[50%] text-sm 2xl:text-lg px-2 bg-black text-white min-h-12 max-h-28 min-w-12 overflow-auto opacity-20 hover:opacity-90 transition-opacity",
+        "absolute top-2 left-1/2 -translate-x-[50%] text-sm 2xl:text-lg px-2 bg-black text-white min-h-12 max-h-28 min-w-12 overflow-auto opacity-20 hover:opacity-90 transition-opacity z-20",
         fullSize
           ? "max-h-[calc(100vh-100px)] left-2 opacity-100 translate-x-0 top-[50px] no-scrollbar"
           : ""
