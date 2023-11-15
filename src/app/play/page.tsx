@@ -184,7 +184,7 @@ export default function Home() {
                     className="flex flex-col items-center"
                   >
                     <HealthBar maxHp={char.maxHealth} currentHp={char.health} />
-                    {getCharacterImage(char, true)}
+                    {getCharacterImage(char, false)}
                   </div>
                 ))}
               </div>
