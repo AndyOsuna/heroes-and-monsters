@@ -21,36 +21,20 @@ import {
 } from "@/game/spell";
 import Weapon from "@/game/weapon";
 
-import MonsterImage from "@/public/monster1.png";
 import MonsterAttackImage from "@/public/monsterAttack1.gif";
 import MonsterDeadImage from "@/public/monsterDead.gif";
 import MonsterIdleImage from "@/public/monsterIdle.gif";
 import Niebla from "@/public/niebla.png";
 import NullImage from "@/public/nullImage.png";
-import WarriorImage from "@/public/warrior.png";
 import WarriorAttackImage from "@/public/warriorAttack1.gif";
 import WarriorDeadImage from "@/public/warriorDead.gif";
 import WarriorIdleImage from "@/public/warriorIdle1.gif";
-import WizardImage from "@/public/wizard.png";
 import WizardAttackImage from "@/public/wizardAttack1.gif";
 import WizardDeadImage from "@/public/wizardDead.gif";
 import WizardIdleImage from "@/public/wizardIdle.gif";
 
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
-
-const getCharacterImage = (character: Character) => {
-  switch (character.constructor.name) {
-    case "Warrior":
-      return WarriorImage;
-    case "Wizard":
-      return WizardImage;
-    case "Monster":
-      return MonsterImage;
-    default:
-      return NullImage;
-  }
-};
 
 let spells = {
   sideOneSpells: [
@@ -204,7 +188,7 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-              <div className="ml-40">
+              <div className="mr-52">
                 {bando2.getCharacters().map((char, index) => (
                   <div
                     key={index}
