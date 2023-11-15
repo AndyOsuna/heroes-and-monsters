@@ -11,6 +11,7 @@ export default abstract class Character {
   private attacked = false;
   protected HP: number;
   protected logger?: Logger;
+  isAttacking: boolean = false;
 
   constructor(
     protected maxHP: number = 1,
@@ -20,9 +21,8 @@ export default abstract class Character {
   ) {
     this.HP = maxHP;
   }
-  setLogger(logger: Logger){
+  setLogger(logger: Logger) {
     this.logger = logger;
-
   }
   get maxHealth() {
     return this.maxHP;
@@ -45,14 +45,14 @@ export default abstract class Character {
 
     let newWeapon = characterAttacked.receiveDamage(damage);
     if (this.logger)
-    this.logger.log(
-      `(${this.name}: ${this.HP} HP) attacks (${characterAttacked.name}: ${characterAttacked.HP} HP) for ${damage} damage`
-    );
+      this.logger.log(
+        `(${this.name}: ${this.HP} HP) attacks (${characterAttacked.name}: ${characterAttacked.HP} HP) for ${damage} damage`
+      );
     if (newWeapon) {
       if (this.logger)
-      this.logger.log(
-        `${this.name} se equipó su nueva arma: ${newWeapon.name}(${newWeapon.damage})`
-      );
+        this.logger.log(
+          `${this.name} se equipó su nueva arma: ${newWeapon.name}(${newWeapon.damage})`
+        );
       this.weapon = newWeapon;
     }
   }
@@ -64,19 +64,15 @@ export default abstract class Character {
     this.HP -= damage;
     if (this.HP <= 0) {
       this.HP = 0;
-      if (this.logger)
-      this.logger.log(`${this.name} ha sido derrotado`);
+      if (this.logger) this.logger.log(`${this.name} ha sido derrotado`);
     }
   }
 
   heal(HP: number) {
-    if (HP > 0){
-      if((this.HP+HP)>this.maxHP)
-      this.HP==this.maxHP
-      else
-      this.HP += HP;
-
-    } 
+    if (HP > 0) {
+      if (this.HP + HP > this.maxHP) this.HP == this.maxHP;
+      else this.HP += HP;
+    }
   }
 
   equipe(weapon: Weapon): void {

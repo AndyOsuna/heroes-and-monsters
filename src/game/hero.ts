@@ -2,13 +2,21 @@ import Character from "./character";
 import Weapon from "./weapon";
 
 export class Hero extends Character {
+  isAttacking = false; 
+
   name = "Hero";
-  maxHP=100;
+  maxHP = 100;
   HP = 100;
 
   attack(characterAttacked: Character) {
+    this.isAttacking = true; 
     super.attack(characterAttacked);
-  }
+    
+   
+    setTimeout(() => {
+      this.isAttacking = false;
+    }, 1000); 
+}
 }
 
 export class Warrior extends Hero {

@@ -1,0 +1,79 @@
+.div-base {
+  
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1000; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url("https://i.postimg.cc/x1YbbPsL/puerta.png");
+     background-repeat: no-repeat;
+     background-position: center;
+     background-size: cover;
+    
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-100vh); 
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(100vh); 
+    }
+}
+
+#div1 {
+    animation: slideUp 2s ease-in-out forwards;
+}
+
+#div2 {
+    animation: slideDown 2s ease-in-out forwards;
+}
+
+  
+  .gallery {
+    --d: 80s; 
+
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh; 
+    display: grid;
+    overflow: hidden; 
+    z-index: 7; 
+}
+
+.gallery > img {
+    grid-area: 1/1;
+    width: 100%; 
+    height: auto; 
+    object-fit: covers; 
+    animation: r var(--d) linear infinite;
+}
+
+.gallery > img:nth-child(2) { animation-delay: calc(1*var(--d)/-4); }
+.gallery > img:nth-child(3) { animation-delay: calc(2*var(--d)/-4); }
+.gallery > img:nth-child(4) { animation-delay: calc(3*var(--d)/-4); }
+
+@keyframes r {
+    75%    { transform: translate(-300%); }
+    75.01% { transform: translate(100%); }
+}
+
+  
+.main_cursor {
+    cursor: url('https://i.postimg.cc/8z45qgT0/cursor.png'), auto;
+}
