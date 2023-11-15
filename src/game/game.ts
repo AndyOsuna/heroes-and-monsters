@@ -1,3 +1,4 @@
+import Character from "./character";
 import { Warrior } from "./hero";
 import { Monster } from "./monster";
 import Side from "./side";
@@ -5,6 +6,7 @@ import { Spell } from "./spell";
 import Weapon from "./weapon";
 
 export default class Game {
+ 
   bando1: Side;
   bando2: Side;
   constructor() {

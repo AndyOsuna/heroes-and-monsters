@@ -9,6 +9,8 @@ export default abstract class Character {
   abstract readonly name: string;
   private attacked = false;
   protected HP: number;
+  isAttacking: boolean = false;
+  id: any;
 
   constructor(
     protected maxHP: number = 1,

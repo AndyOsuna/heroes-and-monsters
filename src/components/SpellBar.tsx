@@ -14,7 +14,7 @@ export default function SpellBar({
   disabled: boolean;
 }) {
   return (
-    <div className="text-black h-full w-40 items-center justify-center"> 
+    <div className="text-black h-full w-40 items-center justify-center z-10"> 
       <div className="bg-[url(../public/panel.png)] bg-contain bg-no-repeat bg-center h-full w-40 flex flex-col justify-center items-center gap-3 pt-16" >
     {spells.map((spell) => (
       

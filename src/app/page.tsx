@@ -1,23 +1,22 @@
 import Link from "next/link";
-
+import AnimatedDivs from "@/components/animateDivs";
 export default function Home() {
   return (
-    <main className="bg-[url(https://images5.alphacoders.com/131/1311254.png)] bg-cover bg-no-repeat h-screen flex items-center justify-center flex-col">
-      <h1 className="text-8xl font-bold mb-20 text-white bg-black">
-        Bienvenido al Himalaya
-      </h1>
-      <ul className="text-4xl font-bold space-y-2">
-        <li>
+    <main className="bg-[url(../public/bg-home.png)] bg-contain bg-center bg-no-repeat h-screen flex items-center justify-center flex-col overflow-hidden">
+   
+     <ul className="text-4xl font-bold space-y-2">
+        
           <Link
             href="/play"
-            className="bg-white hover:scale-125 transition-transform duration-150"
+            className=""
           >
-            Start
+            <button className="bg-[url(../public/play.png)] w-10 h-10 bg-cover hover:scale-110 transition-transform duration-150">
+            </button>
           </Link>
-        </li>
+        
         <li>
-          <button className="bg-white hover:scale-125 transition-transform duration-150">
-            Créditos
+          <button className="bg-[url(../public/creditos.png)] w-10 h-10 bg-cover hover:scale-110 transition-transform duration-150">
+           
           </button>
         </li>
       </ul>

@@ -7,10 +7,19 @@ import { Monster } from "@/game/monster";
 import Side from "@/game/side";
 import { Warrior, Wizard } from "@/game/hero";
 import Weapon from "@/game/weapon";
-import WarriorImage from '@/public/warrior.png';
-import WizardImage from '@/public/wizard.png';
-import MonsterImage from '@/public/monster1.png';
+import WarriorAttackImage from '@/public/warriorAttack.gif';
+import WarriorIdleImage from '@/public/warriorIdle1.gif';
+import WarriorDeadImage from '@/public/warriorDead.gif';
+import WizardIdleImage from '@/public/wizardIdle.gif';
+import WizardAttackImage from '@/public/wizardAttack.gif';
+import WizardDeadImage from '@/public/wizardDead.gif';
+import MonsterIdleImage from '@/public/monsterIdle.gif';
+import MonsterAttackImage from '@/public/monsterAttack.gif';
+import MonsterDeadImage from '@/public/monsterDead.gif';
+import Niebla from '@/public/niebla.png';
 import NullImage from "@/public/nullImage.png";
+
+
 import {
   Spell,
   HealAllSpell,
@@ -22,20 +31,10 @@ import {
 import MenuFinish from "@/components/MenuFinish";
 import Character from "@/game/character";
 import HealthBar from "@/components/healthBar";
+import AnimatedDivs from "@/components/animateDivs";
 
 
-const getCharacterImage = (character: Character) => {
-  switch (character.constructor.name) {
-    case 'Warrior':
-      return WarriorImage;
-    case 'Wizard':
-      return WizardImage;
-    case 'Monster':
-      return MonsterImage;
-    default:
-      return NullImage;
-  }
-};
+
 
 let spells = {
   sideOneSpells: [
@@ -54,14 +53,82 @@ let spells = {
   ],
 };
 
-let bando1 = new Side([new Warrior(new Weapon("Sable laser", 5)), new Wizard()]);
+function generateRandomCharacter() {
+  const randomNum = Math.floor(Math.random() * 3);
+  switch (randomNum) {
+    case 0:
+      return new Warrior(new Weapon("Espada", 10));
+    case 1:
+      return new Wizard();
+    case 2:
+      return new Monster(30, new Weapon("Garra", 8));
+    default:
+      return new Warrior(new Weapon("Espada", 10));
+  }
+}
+
+
+let bando1 = new Side([generateRandomCharacter(),
+generateRandomCharacter(),]);
 let bando2 = new Side([
-  new Monster(35, new Weapon("palo", 3)),
-  new Monster(35, new Weapon("palo", 10)),
-  new Monster(35, new Weapon("palo", 5)),
+  generateRandomCharacter(),
+  generateRandomCharacter(),
+
+
+
 ]);
 
 export default function Home() {
+
+
+
+  const getCharacterImage = (character: Character, isSideTwo: boolean) => {
+    let imageStyle = isSideTwo ? { transform: 'scaleX(-1)' } : {};
+    let image;
+
+    if (!character.isAlive()) {
+   
+      switch (character.constructor.name) {
+        case 'Warrior':
+          image = WarriorDeadImage;
+          break;
+        case 'Wizard':
+          image = WizardDeadImage;
+          break;
+        case 'Monster':
+          image = MonsterDeadImage;
+          break;
+        default:
+          image = NullImage;
+      }
+    } else {
+
+      switch (character.constructor.name) {
+        case 'Warrior':
+          image = character.isAttacking ? WarriorAttackImage : WarriorIdleImage;
+          break;
+        case 'Wizard':
+          image = character.isAttacking ? WizardAttackImage : WizardIdleImage;
+          break;
+        case 'Monster':
+          image = character.isAttacking ? MonsterAttackImage : MonsterIdleImage;
+          break;
+        default:
+          image = NullImage;
+      }
+    }
+
+    return (
+      <Image
+        style={imageStyle}
+        width={150}
+        height={150}
+        src={image}
+        alt={`${character.constructor.name}`}
+      />
+    );
+  };
+
   const [mounted, setMounted] = useState(false)
   const [currentTurn, setCurrentTurn] = useState(0);
   const [gameStatus, setGameStatus] = useState<"playing" | "finished">(
@@ -95,52 +162,61 @@ export default function Home() {
 
   if (!mounted) return null
   return (
-    <main className=" bg-[url(../public/bg-play2.png)] bg-cover bg-no-repeat bg-center h-screen w-screen flex justify-between items-center  p-2">
+    <main className=" bg-[url(../public/bg-play2.gif)] bg-cover bg-no-repeat bg-center h-screen w-screen flex justify-between items-center  p-2">
+      <AnimatedDivs />
+      <div className="gallery z-10">
+    <Image className="z-10" width={500}  height={500} src={Niebla} alt="Descripción de la imagen"/>
+    <Image className="z-10" width={500}  height={500} src={Niebla} alt="Descripción de la imagen"/>
+    <Image  className="z-10" width={500}  height={500} src={Niebla} alt="Descripción de la imagen"/>
+    <Image  className="z-10" width={500}  height={500} src={Niebla} alt="Descripción de la imagen"/>
+  </div>
+      <div className="h-screen w-screen flex justify-between items-center">
 
 
+        {gameStatus === "playing" && (
+          <>
+            <SpellBar
+              spells={spells.sideOneSpells}
+              turn={turn}
+              attacker={1}
+              disabled={currentTurn % 2 === 0}
+              
+            />
+            <div className="flex w-full justify-between mt-36">
+              <div className="ml-52">
 
-      {gameStatus === "playing" && (
-        <>
-          <SpellBar
-            spells={spells.sideOneSpells}
-            turn={turn}
-            attacker={1}
-            disabled={currentTurn % 2 === 0}
-          />
-          <div className="flex justify-between mt-48">
-            <div className="mr-40">
+                {bando1.getCharacters().map((char, index) => (
+                  <div key={index} style={{ marginLeft: `${index * -50}px` }} className="flex flex-col items-center">
+                    <HealthBar maxHp={char.maxHealth} currentHp={char.health} />
+                    {getCharacterImage(char, false)}
+                  </div>
+                ))}
+              </div>
+              <div className="mr-52">
 
-              {bando1.getCharacters().map((char, index) => (
-                <div key={index} style={{ marginLeft: `${index * -50}px` }}>
-                  <HealthBar maxHp={char.maxHealth} currentHp={char.health} />
-                  <Image width={150} height={150} key={index} src={getCharacterImage(char)} alt={`${char.constructor.name} ${index + 1}`} />
+                {bando2.getCharacters().map((char, index) => (
+                  <div key={index} style={{ marginLeft: `${index * 50}px` }} className="flex flex-col items-center">
+                    <HealthBar maxHp={char.maxHealth} currentHp={char.health} />
+                    {getCharacterImage(char, true)}
+                  </div>
+                ))}
+              </div>
 
-                </div>
-              ))}
             </div>
-            <div className="ml-40">
+            <SpellBar
 
-              {bando2.getCharacters().map((char, index) => (
-                <div key={index} style={{ marginLeft: `${index * 50}px` }}>
-                  <HealthBar maxHp={char.maxHealth} currentHp={char.health} />
-                  <Image width={150} height={150} key={index} src={getCharacterImage(char)} alt={`${char.constructor.name} ${index + 1}`} />
-
-                </div>
-              ))}
-            </div>
-
-          </div>
-          <SpellBar
-            spells={spells.sideTwoSpells}
-            turn={turn}
-            attacker={2}
-            disabled={currentTurn % 2 !== 0}
-          />
+              spells={spells.sideTwoSpells}
+              turn={turn}
+              attacker={2}
+              disabled={currentTurn % 2 !== 0}
+            />
 
 
-        </>
-      )}
-      {gameStatus === "finished" && <MenuFinish />}
+          </>
+        )}
+        {gameStatus === "finished" && <MenuFinish />}
+      </div>
+
     </main>
   );
 }
