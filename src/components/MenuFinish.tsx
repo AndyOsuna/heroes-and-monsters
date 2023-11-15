@@ -1,7 +1,7 @@
 export default function MenuFinish() {
   return (
     
-      <div style={{ backgroundColor: '#302b2b', border: '18px inset #2c2a2a' }} className="grid place-items-center h-80 w-80 m-auto text-white  z-10 drop-shadow-2xl">
+      <div style={{ backgroundColor: '#302b2b', border: '18px inset #2c2a2a' }} className="grid place-items-center h-80 w-80 m-auto text-white  z-10 ">
       <h1 className="text-4xl font-bold">Game Over</h1>
       <button 
       style={{ backgroundColor: '#302b2b', border: '7px inset #2c2a2a' }}

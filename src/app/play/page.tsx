@@ -1,7 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-
 import SpellBar from "@/components/SpellBar";
 import { Monster } from "@/game/monster";
 import Side from "@/game/side";
@@ -18,6 +17,7 @@ import MonsterAttackImage from '@/public/monsterAttack.gif';
 import MonsterDeadImage from '@/public/monsterDead.gif';
 import Niebla from '@/public/niebla.png';
 import NullImage from "@/public/nullImage.png";
+import CursorImage from '@/public/cursor.png';
 
 
 import {
@@ -80,7 +80,9 @@ let bando2 = new Side([
 
 export default function Home() {
 
-
+  const cursorStyle = {
+    cursor: `url('/cursor.png'), auto`,
+  };
 
   const getCharacterImage = (character: Character, isSideTwo: boolean) => {
     let imageStyle = isSideTwo ? { transform: 'scaleX(-1)' } : {};
@@ -162,13 +164,13 @@ export default function Home() {
 
   if (!mounted) return null
   return (
-    <main className=" bg-[url(../public/bg-play2.gif)] bg-cover bg-no-repeat bg-center h-screen w-screen flex justify-between items-center  p-2">
+    <main  className="main_cursor bg-[url(../public/bg-play2.gif)] bg-cover bg-no-repeat bg-center h-screen w-screen flex justify-between items-center  p-2">
       <AnimatedDivs />
       <div className="gallery z-10">
-    <Image className="z-10" width={500}  height={500} src={Niebla} alt="Descripción de la imagen"/>
-    <Image className="z-10" width={500}  height={500} src={Niebla} alt="Descripción de la imagen"/>
-    <Image  className="z-10" width={500}  height={500} src={Niebla} alt="Descripción de la imagen"/>
-    <Image  className="z-10" width={500}  height={500} src={Niebla} alt="Descripción de la imagen"/>
+    <Image className="z-10" width={500}  height={500} src={Niebla} alt=""/>
+    <Image className="z-10" width={500}  height={500} src={Niebla} alt=""/>
+    <Image  className="z-10" width={500}  height={500} src={Niebla} alt=""/>
+    <Image  className="z-10" width={500}  height={500} src={Niebla} alt=""/>
   </div>
       <div className="h-screen w-screen flex justify-between items-center">
 

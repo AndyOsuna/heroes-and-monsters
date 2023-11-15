@@ -9,7 +9,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-image: url("https://i.postimg.cc/x1YbbPsL/puerta.png");
+     background-repeat: no-repeat;
+     background-position: center;
+     background-size: cover;
     
 }
 
@@ -71,4 +74,6 @@
 }
 
   
-  
+.main_cursor {
+    cursor: url('https://i.postimg.cc/8z45qgT0/cursor.png'), auto;
+}
